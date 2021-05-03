@@ -11,8 +11,12 @@ const bot = linebot({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
 
-bot.listen('/', process.env.PORT)
+bot.listen('/', process.env.PORT, () => {
+  console.log('機器人啟動')
+})
 
 bot.on('message', event => {
-  console.log(event)
+  if (event.message.type === 'text') {
+    event.reply(event.message.text)
+  }
 })
