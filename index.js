@@ -1,5 +1,23 @@
 import linebot from 'linebot'
 import dotenv from 'dotenv'
+import axios from 'axios'
+// import cheerio from 'cheerio'
+// import schedule from 'node-schedule'
+
+// const data = []
+
+// const getData = async () => {
+//   axios
+//     .get('https://gis.taiwan.net.tw/XMLReleaseALL_public/Walk_f.json')
+//     .then(response => {
+//       data = response.data
+//     })
+//     .catch()
+// }
+
+// 每天 0 點更新資料
+// schedule.scheduleJob('* * 0 * *', getData)
+// getData()
 
 // 讓套件讀取 .env 檔案
 // 讀取後可以用 process.env.變數 使用
@@ -15,8 +33,21 @@ bot.listen('/', process.env.PORT, () => {
   console.log('機器人啟動')
 })
 
-bot.on('message', event => {
+bot.on('message', async event => {
   if (event.message.type === 'text') {
-    event.reply(event.message.text)
+    try {
+      const response = await axios.get('https://datacenter.taichung.gov.tw/swagger/OpenData/f116d1db-56f7-4984-bad8-c82e383765c0')
+      const data = response.data.filter(data => {
+        return data['花種'] === event.message.text
+      })
+
+      let reply = ''
+      for (const d of data) {
+        reply += `地點:${d['地點']} \n地址:${d['地址']} \n觀賞時期:${d['觀賞時期']}\n\n`
+      }
+      event.reply(reply)
+    } catch (error) {
+      event.reply('發生錯誤')
+    }
   }
 })
