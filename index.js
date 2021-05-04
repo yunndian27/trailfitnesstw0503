@@ -2,22 +2,21 @@ import linebot from 'linebot'
 import dotenv from 'dotenv'
 import axios from 'axios'
 // import cheerio from 'cheerio'
-// import schedule from 'node-schedule'
+import schedule from 'node-schedule'
+let data = []
 
-// const data = []
-
-// const getData = async () => {
-//   axios
-//     .get('https://gis.taiwan.net.tw/XMLReleaseALL_public/Walk_f.json')
-//     .then(response => {
-//       data = response.data
-//     })
-//     .catch()
-// }
+const getData = async () => {
+  axios
+    .get('https://gis.taiwan.net.tw/XMLReleaseALL_public/Walk_f.json')
+    .then(response => {
+      data = response.data.XML_Head.Infos.Info
+    })
+    .catch()
+}
 
 // 每天 0 點更新資料
-// schedule.scheduleJob('* * 0 * *', getData)
-// getData()
+schedule.scheduleJob('* * 0 * *', getData)
+getData()
 
 // 讓套件讀取 .env 檔案
 // 讀取後可以用 process.env.變數 使用
@@ -34,17 +33,61 @@ bot.listen('/', process.env.PORT, () => {
 })
 
 bot.on('message', async event => {
+  // 縣市搜尋
   if (event.message.type === 'text') {
     try {
-      const response = await axios.get('https://datacenter.taichung.gov.tw/swagger/OpenData/f116d1db-56f7-4984-bad8-c82e383765c0')
-      const data = response.data.filter(data => {
-        return data['花種'] === event.message.text
+      const result = data.filter(result => {
+        return result.Region === event.message.text
       })
 
       let reply = ''
-      for (const d of data) {
-        reply += `地點:${d['地點']} \n地址:${d['地址']} \n觀賞時期:${d['觀賞時期']}\n\n`
+      for (const r of result) {
+        reply += `${r.Name} \n地址: ${r.Add} \n步行時間: ${r.Walkingtime}小時\n\n`
       }
+
+      event.reply(reply)
+    } catch (error) {
+      event.reply('發生錯誤')
+    }
+  }
+  // 鄉鎮搜尋
+  if (event.message.type === 'text') {
+    try {
+      const result = data.filter(result => {
+        return result.town === event.message.text
+      })
+
+      let reply = ''
+      for (const r of result) {
+        reply += `${r.Name} \n地址: ${r.Add} \n步行時間: ${r.Walkingtime}小時\n\n`
+      }
+
+      event.reply(reply)
+    } catch (error) {
+      event.reply('發生錯誤')
+    }
+  }
+  // 步道名搜尋
+  if (event.message.type === 'text') {
+    try {
+      const result = data.filter(result => {
+        const road = result.Name
+        const regex1 = /.+(?:步道)/gi
+
+        for (const r of road) {
+          if (r.match(regex1)) {
+            console.log(r.match(regex1))
+            return road === event.message.text
+          }
+        }
+        return result.Name === event.message.text
+      })
+
+      let reply = ''
+      for (const r of result) {
+        reply += `${r.Name} \n位置:${r.Add}\n特色:${r.Description} \n\n步行時間: ${r.Walkingtime}小時\n\n推薦附近景點: ${r.Landscape}\n\n注意事項: ${r.Remarks}`
+      }
+
       event.reply(reply)
     } catch (error) {
       event.reply('發生錯誤')
