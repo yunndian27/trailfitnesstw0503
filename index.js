@@ -339,10 +339,7 @@ bot.on('message', async event => {
     const message = {
       type: 'flex',
       altText: '這是 flex',
-      contents: {
-        type: 'carousel',
-        contents: [flex]
-      }
+      contents: [flex]
     }
 
     // fs.writeFileSync('aaa.json', JSON.stringify(message, null, 2))
@@ -357,10 +354,9 @@ bot.on('message', async event => {
 
       let reply = ''
       for (const r of result) {
-        reply += `
-        ▶${r.Name} 
-        \n地址: \n${r.Add} 
-        \n步行時間: ${r.Walkingtime}小時\n\n`
+        reply += `▶${r.Name} 
+        \n  地址: \n${r.Add} 
+        \n  步行時間: ${r.Walkingtime}小時\n\n`
       }
 
       event.reply(reply)
@@ -386,14 +382,12 @@ bot.on('message', async event => {
 
       let reply = ''
       for (const r of result) {
-        reply += `
-        ▶${r.Name}
-        \n位置: \n${r.Add}
-        \n特色: ${r.Description} 
-        \n\n步行時間: ${r.Walkingtime} 小時
-        \n\n推薦附近景點: ${r.Landscape}
-        \n\n注意事項: ${r.Remarks}
-        `
+        reply += `▶${r.Name} 
+        \n  位置: ${r.Add}
+        \n  特色: ${r.Description} 
+        \n\n  步行時間: ${r.Walkingtime} 小時
+        \n\n  推薦附近景點: ${r.Landscape}
+        \n\n  注意事項: ${r.Remarks}`
       }
 
       event.reply(reply)
