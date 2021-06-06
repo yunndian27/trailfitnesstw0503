@@ -15,7 +15,9 @@
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.6",
     "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
     "linebot": "^1.6.1",
+    "ngrok": "^4.0.1",
     "node-schedule": "^2.0.0"
   },
   "devDependencies": {
