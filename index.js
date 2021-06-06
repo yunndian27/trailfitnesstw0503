@@ -44,8 +44,8 @@ bot.on('message', async event => {
       for (const r of result) {
         reply += ` ▶${r.Name}
         \n地址: \n  ${r.Add}
-        \n步行時間: ${r.Walkingtime} 小時\n\n
-        ┄┄┄┄┄┄┄┄┄┄(✿◠‿◠)`
+        \n步行時間: ${r.Walkingtime} 小時\n
+        ┄┄┄┄┄┄┄┄┄┄(✿◠‿◠)\n`
       }
 
       event.reply(reply)
@@ -64,8 +64,8 @@ bot.on('message', async event => {
       for (const r of result) {
         reply += ` ▶${r.Name} 
         \n  地址: \n  ${r.Add} 
-        \n  步行時間: ${r.Walkingtime} 小時\n\n
-        ┄┄┄┄┄┄┄┄┄('・ω・')`
+        \n  步行時間: ${r.Walkingtime} 小時\n
+        ┄┄┄┄┄┄┄┄┄('・ω・')\n`
       }
 
       event.reply(reply)
