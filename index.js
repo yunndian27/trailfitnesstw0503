@@ -35,17 +35,20 @@ bot.listen('/', process.env.PORT, () => {
 })
 
 const result = data.filter(result => {
-  // const road = result.Name
-  // const regex1 = /.+(?:步道)/gi
-
+  const road = result.Name
+  const regex1 = /.+(?:步道)/gi
   // for (const r of road) {
   //   if (r.match(regex1)) {
   //     console.log(r.match(regex1))
   //     return road === event.message.text
   //   }
   // }
-  return result.Name === event.message.text
+  return road.match(regex1) === event.message.text
 })
+// let reply = ''
+// for (const r of result) {
+//   reply += 'flex'
+// }
 
 const flex = {
   type: 'bubble',
