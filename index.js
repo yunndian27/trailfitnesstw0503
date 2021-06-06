@@ -34,23 +34,319 @@ bot.listen('/', process.env.PORT, () => {
   console.log('機器人啟動')
 })
 
-bot.on('message', async event => {
-  // 縣市搜尋
-  if (event.message.type === 'text') {
-    try {
-      const result = data.filter(result => {
-        return result.Region === event.message.text
-      })
+const result = data.filter(result => {
+  return result.Region === event.message.text
+})
 
-      let reply = ''
-      for (const r of result) {
-        reply += `${r.Name} \n地址: ${r.Add} \n步行時間: ${r.Walkingtime}小時\n\n`
+const flex = {
+  type: 'carousel',
+  contents: [
+    {
+      type: 'bubble',
+      hero: {
+        type: 'image',
+        url: 'https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover',
+        action: {
+          type: 'uri',
+          uri: 'http://linecorp.com/'
+        }
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: `${result.Name}`,
+            weight: 'bold',
+            size: 'xl'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '地址',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Add}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              },
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '步行',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Walkingtime}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'spacer',
+            size: 'sm'
+          }
+        ],
+        flex: 0
       }
+    },
+    {
+      type: 'bubble',
+      hero: {
+        type: 'image',
+        url: 'https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover',
+        action: {
+          type: 'uri',
+          uri: 'http://linecorp.com/'
+        }
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: `${result.Name}`,
+            weight: 'bold',
+            size: 'xl'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '地址',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Add}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              },
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '步行',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Walkingtime}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'spacer',
+            size: 'sm'
+          }
+        ],
+        flex: 0
+      }
+    },
+    {
+      type: 'bubble',
+      hero: {
+        type: 'image',
+        url: 'https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover',
+        action: {
+          type: 'uri',
+          uri: 'http://linecorp.com/'
+        }
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: `${result.Name}`,
+            weight: 'bold',
+            size: 'xl'
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '地址',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Add}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              },
+              {
+                type: 'box',
+                layout: 'baseline',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'text',
+                    text: '步行',
+                    color: '#aaaaaa',
+                    size: 'sm',
+                    flex: 1
+                  },
+                  {
+                    type: 'text',
+                    text: `${result.Walkingtime}`,
+                    wrap: true,
+                    color: '#666666',
+                    size: 'sm',
+                    flex: 5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'spacer',
+            size: 'sm'
+          }
+        ],
+        flex: 0
+      }
+    }]
+}
 
-      event.reply(reply)
-    } catch (error) {
-      event.reply('發生錯誤')
+bot.on('message', async event => {
+  // 縣市搜尋 - 基本款
+  // if (event.message.type === 'text') {
+  //   try {
+  //     const result = data.filter(result => {
+  //       return result.Region === event.message.text
+  //     })
+
+  //     let reply = ''
+  //     for (const r of result) {
+  //       reply += `
+  //       ${r.Name}
+  //       \n地址: \n${r.Add}
+  //       \n步行時間: ${r.Walkingtime} 小時\n\n`
+  //     }
+
+  //     event.reply(reply)
+  //   } catch (error) {
+  //     event.reply('發生錯誤')
+  //   }
+  // }
+  // 縣市搜尋 - flexbox
+  if (event.message.type === 'text') {
+    const message = {
+      type: 'flex',
+      altText: '這是 flex',
+      contents: {
+        type: 'carousel',
+        contents: [flex]
+      }
     }
+
+    // fs.writeFileSync('aaa.json', JSON.stringify(message, null, 2))
+    event.reply(message)
   }
   // 鄉鎮搜尋
   if (event.message.type === 'text') {
@@ -61,7 +357,10 @@ bot.on('message', async event => {
 
       let reply = ''
       for (const r of result) {
-        reply += `${r.Name} \n地址: ${r.Add} \n步行時間: ${r.Walkingtime}小時\n\n`
+        reply += `
+        ▶${r.Name} 
+        \n地址: \n${r.Add} 
+        \n步行時間: ${r.Walkingtime}小時\n\n`
       }
 
       event.reply(reply)
@@ -88,12 +387,12 @@ bot.on('message', async event => {
       let reply = ''
       for (const r of result) {
         reply += `
-        <h1>${r.Name}</h1> 
-        \n<span style="color: #aaa;">位置:</span>&emsp;<span style="color: #666;">${r.Add}</span>
-        \n特色:&emsp;${r.Description} 
-        \n\n步行時間:&emsp;${r.Walkingtime}小時
-        \n\n推薦附近景點:&emsp;${r.Landscape}
-        \n\n注意事項:&emsp;${r.Remarks}
+        ▶${r.Name}
+        \n位置: \n${r.Add}
+        \n特色: ${r.Description} 
+        \n\n步行時間: ${r.Walkingtime} 小時
+        \n\n推薦附近景點: ${r.Landscape}
+        \n\n注意事項: ${r.Remarks}
         `
       }
 
