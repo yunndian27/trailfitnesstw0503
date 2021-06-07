@@ -35,11 +35,9 @@
 - 點按『操作說明』
 ![操作說明](https://github.com/yunndian27/trailfitnesstw0503/blob/master/images/IMG_04.PNG)
 
-- 點按『好文推薦』--- 全台票選出適合各族群『台灣百大必訪步道』
- - [全台票選出適合各族群『台灣百大必訪步道』](https://hiking.biji.co/index.php?q=news&act=info&id=158 "台灣百大必訪步道")
+- 點按『好文推薦』--- [全台票選出適合各族群『台灣百大必訪步道』](https://hiking.biji.co/index.php?q=news&act=info&id=158 "台灣百大必訪步道")
 
-- 點按『推薦網站』--- 推薦充滿圖文介紹的『健行筆記』
- - [推薦充滿圖文介紹的『健行筆記』](https://hiking.biji.co/ "健行筆記")
+- 點按『推薦網站』--- [推薦充滿圖文介紹的『健行筆記』](https://hiking.biji.co/ "健行筆記")
 
 ---
 ## 作業連結
